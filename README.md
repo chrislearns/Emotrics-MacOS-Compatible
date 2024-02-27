@@ -1,3 +1,11 @@
+# Notes
+1. You must do the dlib and OpenCV installs with Conda. You must also install PyQt with Conda or you will will get version conflicts
+2. Some things I needed:
+-   conda install -c conda-forge opencv
+-   conda install PyQt #in my case it automatically die PyQt5
+-   conda config --add channels conda-forge\n
+
+
 # Emotrics
 Software to autmatically compute facial metrics in unilateral facial paralysis
 
