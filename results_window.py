@@ -27,10 +27,7 @@ class CustomTabResult(QtWidgets.QWidget):
         super(CustomTabResult, self) .__init__()
 
         
-        if os.name is 'posix': #is a mac or linux
-            scriptDir = os.path.dirname(sys.argv[0])
-        else: #is a  windows 
-            scriptDir = os.getcwd()
+        scriptDir = os.path.dirname(os.path.realpath(__file__))
                 
         spacerh = QtWidgets.QWidget(self)
         spacerh.setFixedSize(10,0)
@@ -362,10 +359,7 @@ class ShowResults(QtWidgets.QWidget):
         super(ShowResults, self).__init__(parent)
         
         self.setWindowTitle('Metrics')
-        if os.name is 'posix': #is a mac or linux
-            scriptDir = os.path.dirname(sys.argv[0])
-        else: #is a  windows 
-            scriptDir = os.getcwd()
+        scriptDir = os.path.dirname(os.path.realpath(__file__))
         self.setWindowIcon(QtGui.QIcon(scriptDir + os.path.sep + 'include' +os.path.sep +'icon_color'+ os.path.sep + 'ruler_icon.ico'))
         self._Example_window = None
         

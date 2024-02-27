@@ -144,10 +144,7 @@ class ModelTab(QtWidgets.QWidget):
     def __init__(self,parent=None, ModelName='iBUG'):
         super(ModelTab, self) .__init__(parent)
         
-        if os.name is 'posix': #is a mac or linux
-            scriptDir = os.path.dirname(sys.argv[0])
-        else: #is a  windows 
-            scriptDir = os.getcwd()
+        scriptDir = os.path.dirname(os.path.realpath(__file__))
         
         #spacerh = QHLine()#QtWidgets.QWidget(self)
         #spacerh.setFixedSize(10,0)
@@ -343,10 +340,7 @@ class ShowSettings(QtWidgets.QDialog):
         super(ShowSettings, self).__init__(parent)
         
         self.setWindowTitle('Settings')
-        if os.name is 'posix': #is a mac or linux
-            scriptDir = os.path.dirname(sys.argv[0])
-        else: #is a  windows 
-            scriptDir = os.getcwd()
+        scriptDir = os.path.dirname(os.path.realpath(__file__))
    
         self.setWindowIcon(QtGui.QIcon(scriptDir + os.path.sep + 'include' +os.path.sep +'icon_color'+ os.path.sep + 'settings_icon.ico'))
         

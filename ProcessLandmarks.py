@@ -37,10 +37,7 @@ class GetLandmarks(QObject):
         #function to automatically localize the landmarks in the a face image using 
         #dlib algorithm 
         detector = get_frontal_face_detector()
-        if os.name is 'posix': #is a mac or linux
-            scriptDir = os.path.dirname(sys.argv[0])
-        else: #is a  windows 
-            scriptDir = os.getcwd()
+        scriptDir = os.path.dirname(os.path.realpath(__file__))
         if self._ModelName == 'iBUG':  #user wants to use iBUGS model
             predictor = shape_predictor(scriptDir + os.path.sep + 'include' +os.path.sep +'data'+ os.path.sep + 'shape_predictor_68_face_landmarks.dat')
         elif self._ModelName == 'MEE':  #user wants to use MEE model

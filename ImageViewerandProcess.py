@@ -114,7 +114,35 @@ class ImageViewer(QtWidgets.QGraphicsView):
             elif self._zoom <= 0:
                 self._zoom = 0
                 self.fitInView()
-                
+
+    # Add this new method to your class
+    def keyPressEvent(self, event):
+        # Check if Command (or Control on Windows/Linux) is pressed
+        modifiers = QtWidgets.QApplication.keyboardModifiers()
+        is_command_pressed = modifiers == QtCore.Qt.ControlModifier or modifiers == QtCore.Qt.MetaModifier
+        
+        # Zoom in
+        if is_command_pressed and event.key() == QtCore.Qt.Key_Equal:
+            self.zoomIn()
+            
+        # Zoom out
+        elif is_command_pressed and event.key() == QtCore.Qt.Key_Minus:
+            self.zoomOut()
+            
+        else:
+            super(ImageViewer, self).keyPressEvent(event)  # Call the parent class's key press event handler
+            
+    def zoomIn(self):
+        if self._zoom < 30:  # Limit zoom in to 300%
+            factor = 1.1  # 10% zoom in
+            self._zoom += 1
+            self.scale(factor, factor)
+    
+    def zoomOut(self):
+        if self._zoom > -15:  # Limit zoom out to 50%
+            factor = 0.9  # 10% zoom out
+            self._zoom -= 1
+            self.scale(factor, factor)
                 
     def mousePressEvent(self, event):
         #this function takes care of lifting (if RightClick) and relocating (if

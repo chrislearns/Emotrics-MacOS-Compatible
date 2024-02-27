@@ -84,10 +84,7 @@ class SaveWindow(QDialog):
     def initUI(self):
         
         self.setWindowTitle('Save')
-        if os.name is 'posix': #is a mac or linux
-            scriptDir = os.path.dirname(sys.argv[0])
-        else: #is a  windows 
-            scriptDir = os.getcwd()
+        scriptDir = os.path.dirname(os.path.realpath(__file__))
             
         self.setWindowIcon(QtGui.QIcon(scriptDir + os.path.sep + 'include' +os.path.sep +'icon_color'+ os.path.sep + 'save_icon.ico'))
         

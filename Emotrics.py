@@ -121,10 +121,7 @@ class window(QtWidgets.QWidget):
         
         self.setWindowTitle('Emotrics')    
         
-        if os.name is 'posix': #is a mac or linux
-            scriptDir = os.path.dirname(sys.argv[0])
-        else: #is a  windows 
-            scriptDir = os.getcwd()
+        scriptDir = os.path.dirname(os.path.realpath(__file__))
 
 
         self.setWindowIcon(QtGui.QIcon(scriptDir + os.path.sep + 'include' +os.path.sep +'icon_color'+ os.path.sep + 'meei_3WR_icon.ico'))
@@ -162,22 +159,25 @@ class window(QtWidgets.QWidget):
         
         self._ModelName = 'MEE' #_ModelType can be 'iBUGS' or 'MEE'
         
-      
+        print("🔵 initializing UI")
         #initialize the User Interface
         self.initUI()
         
     def initUI(self):
         #local directory
         
-        if os.name is 'posix': #is a mac or linux
-            scriptDir = os.path.dirname(sys.argv[0])
-        else: #is a  windows 
-            scriptDir = os.getcwd()
+        scriptDir = os.path.dirname(os.path.realpath(__file__))
 
-        #read the image from file        
-        img_Qt = QtGui.QImage(scriptDir + os.path.sep + 'include' +os.path.sep +'icon_color'+ os.path.sep + 'Facial-Nerve-Center.jpg')
+        #read the image from file
+        imagePath = scriptDir + os.path.sep + 'include' +os.path.sep +'icon_color'+ os.path.sep + 'Facial-Nerve-Center.jpg'
+        img_Qt = QtGui.QImage(imagePath)
+        print(f'image path{imagePath}')
         img_show = QtGui.QPixmap.fromImage(img_Qt)
         
+        if img_Qt.isNull():
+            print("Failed to load image")
+        else:
+            print("🔵 showing main image")
         #the image will be displayed in the custom ImageViewer
         self.displayImage = ImageViewer()      
         self.displayImage.setPhoto(img_show)    
@@ -270,7 +270,7 @@ class window(QtWidgets.QWidget):
         self.setLayout(layout)
         
 
-        
+        print("🔵 Showing self")
         self.show()
         
     def CreatePatient(self):
@@ -765,8 +765,8 @@ class window(QtWidgets.QWidget):
     def ProcessShape(self, shape, numFaces, lefteye, righteye, boundingbox):
         if numFaces == 1 :
             
-            if self._Scale is not 1: #in case that a smaller image was used for 
-                                     #processing, then update the landmark 
+            if self._Scale != 1: #in case that a smaller image was used for
+                                     #processing, then update the landmark
                                      #position with the scale factor
                 for k in range(0,68):
                     shape[k] = [int(np.round(shape[k,0]*self._Scale,0)) ,
@@ -817,8 +817,8 @@ class window(QtWidgets.QWidget):
     def ProcessShape_update(self, shape, numFaces, lefteye, righteye, boundingbox):
         #we know that there is a face, so we don't need to check if there are multiple faces 
            
-        if self._Scale is not 1: #in case that a smaller image was used for 
-                                 #processing, then update the landmark 
+        if self._Scale != 1: #in case that a smaller image was used for
+                                 #processing, then update the landmark
                                  #position with the scale factor
             for k in range(0,68):
                 shape[k] = [int(np.round(shape[k,0]*self._Scale,0)) ,
@@ -996,7 +996,7 @@ class window(QtWidgets.QWidget):
             user_size_landmark = Settings.tab3._Landmark_Size_Edit.text()
             old_size_landmark = self.displayImage._landmark_size
             is_landmark_changed = False
-            if user_size_landmark is "":
+            if user_size_landmark == "":
                 size_landmarks = old_size_landmark
             elif int(user_size_landmark) ==  0: #used entered zero, just ignore it 
                 size_landmarks = old_size_landmark
@@ -1071,8 +1071,8 @@ class window(QtWidgets.QWidget):
         
         #we know that there is a face, so we don't need to check if there are multiple faces 
            
-        if self._Scale is not 1: #in case that a smaller image was used for 
-                                 #processing, then update the landmark 
+        if self._Scale != 1: #in case that a smaller image was used for
+                                 #processing, then update the landmark
                                  #position with the scale factor
             for k in range(0,68):
                 shape[k] = [int(np.round(shape[k,0]*self._Scale,0)) ,
@@ -1139,8 +1139,8 @@ class window(QtWidgets.QWidget):
         
         #we know that there is a face, so we don't need to check if there are multiple faces 
            
-        if self._Scale is not 1: #in case that a smaller image was used for 
-                                 #processing, then update the landmark 
+        if self._Scale != 1: #in case that a smaller image was used for
+                                 #processing, then update the landmark
                                  #position with the scale factor
             for k in range(0,68):
                 shape[k] = [int(np.round(shape[k,0]*self._Scale,0)) ,
