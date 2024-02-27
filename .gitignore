@@ -3,3 +3,4 @@ build/
 dist/include/  
 dlib/
 __pycache__/
+.DS_Store
