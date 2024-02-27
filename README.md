@@ -1,4 +1,4 @@
-# Notes
+# Notes (for M1 Mac Compatibility)
 1. You must do the dlib and OpenCV installs with Conda. You must also install PyQt with Conda or you will will get version conflicts
 2. Some things I needed:
 -   conda install -c conda-forge opencv
